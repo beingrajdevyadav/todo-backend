@@ -7,7 +7,7 @@ import { configDotenv } from "dotenv";
 configDotenv();
 
 // app creation using expressjs
-const app =express();
+const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -15,8 +15,8 @@ app.use(express.json());
 // connect to mongodb
 
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>console.log("MongoDB Connected."))
-.catch((err)=>console.log("MongoDB Conn Error : ", err));
+    .then(() => console.log("MongoDB Connected."))
+    .catch((err) => console.log("MongoDB Conn Error : ", err));
 
 
 //  Mongoose Schema 
@@ -25,10 +25,37 @@ const todoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    completed:{
+    completed: {
         type: Boolean,
         default: false
     }
-}, {timestamps: true});
+}, { timestamps: true });
+
+const Todo = mongoose.model("Todo", todoSchema);
+
+
+
+// CRUD Endpoints
+
+// CREATE
+app.post("/todos", async (req, res) => {
+    try {
+        const todo = await Todo.create({ title: req.body.title });
+    } catch (error) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+
+// READ ALL
+// READ one
+// UPDATE
+// DELETE
+
+
+// Start server
+
+
+
 
 
