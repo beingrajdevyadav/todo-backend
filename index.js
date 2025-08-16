@@ -36,7 +36,9 @@ const Todo = mongoose.model("Todo", todoSchema);
 
 
 // CRUD Endpoints
-
+app.get("/", (req ,res)=>{
+    res.json({message: "API Ok"});
+})
 // CREATE
 app.post("/todos", async (req, res) => {
     try {
