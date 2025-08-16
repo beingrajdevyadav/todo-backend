@@ -18,3 +18,17 @@ mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB Connected."))
 .catch((err)=>console.log("MongoDB Conn Error : ", err));
 
+
+//  Mongoose Schema 
+const todoSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    completed:{
+        type: Boolean,
+        default: false
+    }
+}, {timestamps: true});
+
+
