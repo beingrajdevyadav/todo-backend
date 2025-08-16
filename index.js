@@ -103,7 +103,9 @@ app.delete("/todos/:id", async(req , res)=>{
 
 
 // Start server
-
+app.listen(process.env.PORT, ()=>{
+    console.log(`Server is running at http://localhost:${process.env.PORT}`);
+});
 
 
 
