@@ -54,7 +54,18 @@ app.get("/todos", async(req , res)=>{
 });
 
 
-// READ one
+// READ one - by todo id
+app.get("/todos/:id", async(req, res)=>{
+    try {
+        const todo = await Todo.findById(req.params.id);
+        if(!todo) return res.status(404).json({message:"Todo not found"});
+
+        res.json(todo);
+    } catch (error) {
+      res.status(400).json({message: "Invalid Id"});  
+    }
+});
+
 // UPDATE
 // DELETE
 
