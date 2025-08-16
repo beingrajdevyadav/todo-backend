@@ -90,6 +90,17 @@ app.put("/todos/:id", async(req, res)=>{
 
 // DELETE
 
+app.delete("/todos/:id", async(req , res)=>{
+    try {
+        const todo = await Todo.findByIdAndDelete(req.params.id);
+        if(!todo) return res.status(404).json({message: "todo not found"});
+
+        res.json({deleted: todo._id});
+    } catch (error) {
+       res.status(400).json({message: "Invalid ID"}) ;
+    }
+})
+
 
 // Start server
 
