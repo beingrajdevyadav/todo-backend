@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { configDotenv } from "dotenv";
@@ -67,6 +67,27 @@ app.get("/todos/:id", async(req, res)=>{
 });
 
 // UPDATE
+app.put("/todos/:id", async(req, res)=>{
+    try {
+        const todo =await Todo.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: req.body
+            }, 
+            {
+                new: true, runValidators: true
+            }
+        );
+
+        if(!todo) return res.status(404).json({message: "Todo not found"});
+
+        res.json(todo);
+    } catch (error) {
+        res.status(400).json({message:err.message});
+    }
+});
+
+
 // DELETE
 
 
